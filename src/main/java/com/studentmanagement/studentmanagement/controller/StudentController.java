@@ -28,12 +28,15 @@ private StudentService studentService;
         return "studentForm";
     }
     @PostMapping("/addStudent")
-    public String saveStudent(@ModelAttribute("newStudent") Student fullstudent){
-        studentService.saveStudent(fullstudent);
+    public String saveStudent(Model model){
+        Object fullstudent = model.getAttribute("newStudent");
+        System.out.println(fullstudent.toString());
+//        studentService.saveStudent(fullstudent);
         return "redirect:/students";
     }
     @GetMapping("/student/edit/{id}")
     public String updateStudent(@PathVariable String id, Model model){
+
       Student studentTobUpdate =  studentService.getStudentbyId(Long.parseLong(id));
       model.addAttribute("student",studentTobUpdate);
       return "studentEditForm";
